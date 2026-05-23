@@ -1,0 +1,16 @@
+crewai==0.86.0
+crewai-tools>=0.14.0
+litellm
+langchain-groq>=0.2.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-community>=0.3.0
+yfinance>=0.2.50
+qdrant-client>=1.9.0
+sentence-transformers>=3.0.0
+reportlab>=4.2.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+pandas>=2.2.0
+numpy>=1.26.0
+feedparser>=6.0.11
