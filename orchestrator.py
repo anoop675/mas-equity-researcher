@@ -28,11 +28,11 @@ def run_equity_research(user_input: str) -> str:
             Your job:
             1. Understand what company/asset the user is referring to.
                Examples:
-               - "Apple" → search for Apple Inc → validate "AAPL"
-               - "the EV company Elon runs" → Tesla → validate "TSLA"
-               - "google" → Alphabet → validate "GOOGL"
-               - "BTC" or "bitcoin" → validate "BTC-USD"
-               - "NVDA" → directly validate "NVDA"
+               - "Apple" -> search for Apple Inc -> validate "AAPL"
+               - "the EV company Elon runs" -> Tesla -> validate "TSLA"
+               - "google" -> Alphabet -> validate "GOOGL"
+               - "BTC" or "bitcoin" -> validate "BTC-USD"
+               - "NVDA" -> directly validate "NVDA"
 
             2. Call search_ticker_by_name() with the company/asset name.
             3. Call validate_ticker() with the top result to confirm it exists.
@@ -42,13 +42,13 @@ def run_equity_research(user_input: str) -> str:
             - The final ticker symbol (e.g. "TSLA")
             - The full company name (e.g. "Tesla, Inc.")
             - A one-line explanation of why you chose this ticker
-            - Whether it's a crypto asset (true/false)
+            - Whether it is a crypto asset (true/false)
         """,
         expected_output=(
             "A confirmed ticker symbol, full company name, "
             "one-line reasoning, and crypto flag. "
             "Example: TICKER: AAPL | NAME: Apple Inc. | "
-            "REASON: User said 'Apple', matched Apple Inc. on NASDAQ | "
+            "REASON: User said Apple, matched Apple Inc. on NASDAQ | "
             "IS_CRYPTO: false"
         ),
         agent=resolver_agent,
@@ -132,13 +132,9 @@ def run_equity_research(user_input: str) -> str:
 
             When calling generate_investment_report_pdf(), make sure
             dcf_results dict uses EXACTLY these keys:
-            {
-                "enterprise_value": <number without commas>,
-                "intrinsic_per_share": <number without commas>,
-                "equity_value": <number without commas>
-            }
+            enterprise_value, intrinsic_per_share, equity_value
 
-            All numbers must be plain floats — NO commas, NO dollar signs.
+            All numbers must be plain floats with NO commas and NO dollar signs.
             Example: 59062414048 not 59,062,414,048
 
             Call generate_investment_report_pdf() with all data.
