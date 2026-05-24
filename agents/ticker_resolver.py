@@ -92,7 +92,7 @@ def create_ticker_resolver_agent():
             "You never guess — you always verify with the validation tool."
         ),
         tools=[search_ticker_by_name, validate_ticker],
-        llm="groq/llama-3.1-8b-instant",
+        llm="groq/llama-3.3-70b-versatile",
         verbose=True,
         allow_delegation=False,
         max_iter=4,

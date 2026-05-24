@@ -52,7 +52,7 @@ def create_sentiment_agent():
             "and translates it into clear sentiment signals."
         ),
         tools=[get_yahoo_finance_news, get_google_news, get_seeking_alpha_news],
-        llm="groq/llama-3.1-8b-instant",
+        llm="groq/llama-3.3-70b-versatile",
         verbose=True,
         allow_delegation=False,
     )
