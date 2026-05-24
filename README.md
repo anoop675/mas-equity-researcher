@@ -6,7 +6,7 @@
 > The DCF model uses simplified assumptions, the sentiment analysis is based on headline scraping only, and the system has no knowledge of qualitative business factors, insider information, or macroeconomic context. Output accuracy is not guaranteed.
 >
 > **Always consult a qualified financial advisor before making any investment decision.**
-# Autonomous Equity Research & Valuation Muti-Agent System
+# Autonomous Equity Research & Valuation Multi-Agent System
 
 A multi-agent AI system that replicates the workflow of a Wall Street equity research associate, autonomously generating professional PDF investment reports for any publicly traded stock or cryptocurrency from a single natural language input.
 
