@@ -37,10 +37,11 @@ def run_dcf_valuation(free_cash_flow: float, growth_rate: float, terminal_growth
     intrinsic_per_share = round(equity_value / shares_outstanding, 2)
 
     return {
-        "projected_fcf": projected_fcf, # list of 10 values
-        "pv_fcfs": pv_fcfs, # discounted versions
-        "pv_terminal_value": pv_terminal_value,
         "enterprise_value": round(enterprise_value, 2),
         "equity_value": round(equity_value, 2),
-        "intrinsic_per_share": intrinsic_per_share,  # the key number
+        "intrinsic_per_share": intrinsic_per_share,
+        "enterprise_value_billions": round(enterprise_value / 1e9, 2),
+        "equity_value_billions": round(equity_value / 1e9, 2),
+        "pv_terminal_value_billions": round(pv_terminal_value / 1e9, 2),
+        "wacc_used": round(wacc, 5),
     }
