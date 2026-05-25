@@ -165,6 +165,10 @@ def run_equity_research(user_input: str) -> str:
 
             Use EXACTLY these keys in dcf_results:
             enterprise_value, intrinsic_per_share, equity_value
+            
+            financial_highlights should include:
+            market_cap, revenue, net_income, free_cash_flow,
+            total_debt, cash, shares_outstanding, pe_ratio, beta
 
             All numbers must be plain floats with NO commas and NO dollar signs.
 
