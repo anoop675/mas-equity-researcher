@@ -156,7 +156,11 @@ def run_equity_research(user_input: str) -> str:
             - Numbers are internally consistent
             - Recommendation matches valuation
 
-            When calling generate_investment_report_pdf():
+            CRITICAL CONSISTENCY RULE:
+            If target_price < current_price, recommendation MUST be SELL or HOLD.
+            If target_price > current_price by more than 15%, recommendation MUST be BUY.
+            A BUY recommendation with a target price BELOW current price is always wrong.
+            Fix the recommendation before generating the PDF.
 
             For dcf_results, use ONLY the values from the DCF analyst task output.
             Do NOT use market_cap as enterprise_value. They are different things.
@@ -165,7 +169,7 @@ def run_equity_research(user_input: str) -> str:
 
             Use EXACTLY these keys in dcf_results:
             enterprise_value, intrinsic_per_share, equity_value
-            
+
             financial_highlights should include:
             market_cap, revenue, net_income, free_cash_flow,
             total_debt, cash, shares_outstanding, pe_ratio, beta
