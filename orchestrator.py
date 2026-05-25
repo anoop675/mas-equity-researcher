@@ -156,12 +156,17 @@ def run_equity_research(user_input: str) -> str:
             - Numbers are internally consistent
             - Recommendation matches valuation
 
-            When calling generate_investment_report_pdf(), make sure
-            dcf_results dict uses EXACTLY these keys:
+            When calling generate_investment_report_pdf():
+
+            For dcf_results, use ONLY the values from the DCF analyst task output.
+            Do NOT use market_cap as enterprise_value. They are different things.
+            The DCF task output contains enterprise_value_billions - convert it:
+            enterprise_value = enterprise_value_billions x 1000000000
+
+            Use EXACTLY these keys in dcf_results:
             enterprise_value, intrinsic_per_share, equity_value
 
             All numbers must be plain floats with NO commas and NO dollar signs.
-            Example: 59062414048 not 59,062,414,048
 
             Call generate_investment_report_pdf() with all data.
             Return the PDF filename.
