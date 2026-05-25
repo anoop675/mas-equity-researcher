@@ -88,19 +88,45 @@ def run_equity_research(user_input: str) -> str:
         context=[resolve_task],
     )
 
+    # analysis_task = Task(
+    #     description="""
+    #         Using financial data from the data task:
+    #
+    #         1. Extract FCF, beta, shares, debt, cash, growth rate.
+    #         2. Calculate WACC = 0.04 + beta × 0.05
+    #         3. Run run_dcf_valuation() with extracted values.
+    #         4. Calculate upside vs current price.
+    #         5. Issue BUY / HOLD / SELL recommendation.
+    #     """,
+    #     expected_output=(
+    #         "DCF results, WACC, price target, and recommendation."
+    #     ),
+    #     agent=analyst_agent,
+    #     context=[data_task],
+    # )
     analysis_task = Task(
         description="""
             Using financial data from the data task:
 
-            1. Extract FCF, beta, shares, debt, cash, growth rate.
-            2. Calculate WACC = 0.04 + beta × 0.05
-            3. Run run_dcf_valuation() with extracted values.
-            4. Calculate upside vs current price.
-            5. Issue BUY / HOLD / SELL recommendation.
+            1. Extract these exact values:
+               - free_cash_flow (use the raw number, no commas)
+               - beta
+               - shares_outstanding (use the raw number, no commas)
+               - total_debt (use the raw number, no commas)
+               - cash (use the raw number, no commas)
+               - earnings_growth (use as growth_rate)
+
+            2. Calculate WACC as a decimal number FIRST before calling the tool:
+               WACC = 0.04 + beta x 0.05
+               For beta=1.793: WACC = 0.04 + 1.793 x 0.05 = 0.12965
+               Pass WACC as a plain decimal like 0.12965 NOT as a formula string.
+
+            3. Run run_dcf_valuation() with terminal_growth_rate=0.03
+
+            4. Calculate upside = (intrinsic_per_share / current_price) - 1
+            5. BUY if upside > 0.15, HOLD if between -0.15 and 0.15, SELL if below -0.15
         """,
-        expected_output=(
-            "DCF results, WACC, price target, and recommendation."
-        ),
+        expected_output="DCF results, WACC, price target, and recommendation.",
         agent=analyst_agent,
         context=[data_task],
     )
