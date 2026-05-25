@@ -22,7 +22,7 @@ if __name__ == "__main__":
     elif os.getenv("STOCK"):
         user_input = os.getenv("STOCK")
     else:
-        user_input = "TSLA"
+        user_input = "Stock of Elon Musk's EV company"
 
     print(f"\nResearching: {user_input}\n")
     result = run_equity_research(user_input)
