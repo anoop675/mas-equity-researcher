@@ -123,10 +123,24 @@ def run_equity_research(user_input: str) -> str:
 
             3. Run run_dcf_valuation() with terminal_growth_rate=0.03
 
-            4. Calculate upside = (intrinsic_per_share / current_price) - 1
-            5. BUY if upside > 0.15, HOLD if between -0.15 and 0.15, SELL if below -0.15
+            4. From the tool output, copy these EXACT values for the final answer:
+               - enterprise_value: copy the exact number from enterprise_value field
+               - equity_value: copy the exact number from equity_value field
+               - intrinsic_per_share: copy the exact number from intrinsic_per_share field
+
+            5. Calculate upside = (intrinsic_per_share / current_price) - 1
+            6. BUY if upside > 0.15, HOLD if between -0.15 and 0.15, SELL if below -0.15
+
+            Your final answer MUST include these exact lines:
+            ENTERPRISE_VALUE: [number from tool]
+            EQUITY_VALUE: [number from tool]
+            INTRINSIC_PER_SHARE: [number from tool]
+            RECOMMENDATION: [BUY/HOLD/SELL]
         """,
-        expected_output="DCF results, WACC, price target, and recommendation.",
+        expected_output=(
+            "ENTERPRISE_VALUE, EQUITY_VALUE, INTRINSIC_PER_SHARE as exact numbers "
+            "from the DCF tool output, plus WACC and RECOMMENDATION."
+        ),
         agent=analyst_agent,
         context=[data_task],
     )
@@ -160,12 +174,14 @@ def run_equity_research(user_input: str) -> str:
             If target_price < current_price, recommendation MUST be SELL or HOLD.
             If target_price > current_price by more than 15%, recommendation MUST be BUY.
             A BUY recommendation with a target price BELOW current price is always wrong.
-            Fix the recommendation before generating the PDF.
+            Do NOT set target_price equal to current_price. They are always different numbers.
+            target_price = INTRINSIC_PER_SHARE from the analyst task output.
 
-            For dcf_results, use ONLY the values from the DCF analyst task output.
-            Do NOT use market_cap as enterprise_value. They are different things.
-            The DCF task output contains enterprise_value_billions - convert it:
-            enterprise_value = enterprise_value_billions x 1000000000
+            For dcf_results, read the LABELLED values from the analyst task output:
+            - Look for the line starting with ENTERPRISE_VALUE: and use that number
+            - Look for the line starting with EQUITY_VALUE: and use that number
+            - Look for the line starting with INTRINSIC_PER_SHARE: and use that number
+            Do NOT use market_cap as enterprise_value. They are completely different.
 
             Use EXACTLY these keys in dcf_results:
             enterprise_value, intrinsic_per_share, equity_value
