@@ -165,34 +165,26 @@ def run_equity_research(user_input: str) -> str:
         description="""
             Generate the final PDF research report.
 
-            QA check:
-            - Ticker and company name match
-            - Numbers are internally consistent
-            - Recommendation matches valuation
+            STEP 1 - Read exact DCF numbers:
+            Call read_dcf_output() to get the exact numbers directly from file.
+            Use ONLY these numbers for dcf_results. Do not use any numbers
+            from the analyst agent text summary as they may contain errors.
 
-            CRITICAL CONSISTENCY RULE:
-            If target_price < current_price, recommendation MUST be SELL or HOLD.
-            If target_price > current_price by more than 15%, recommendation MUST be BUY.
-            A BUY recommendation with a target price BELOW current price is always wrong.
-            Do NOT set target_price equal to current_price. They are always different numbers.
-            target_price = INTRINSIC_PER_SHARE from the analyst task output.
+            STEP 2 - QA consistency check:
+            - target_price = intrinsic_per_share from read_dcf_output()
+            - If target_price < current_price: recommendation = SELL
+            - If target_price > current_price by more than 15%: recommendation = BUY
+            - Otherwise: recommendation = HOLD
 
-            For dcf_results, read the LABELLED values from the analyst task output:
-            - Look for the line starting with ENTERPRISE_VALUE: and use that number
-            - Look for the line starting with EQUITY_VALUE: and use that number
-            - Look for the line starting with INTRINSIC_PER_SHARE: and use that number
-            Do NOT use market_cap as enterprise_value. They are completely different.
+            STEP 3 - Generate PDF:
+            Call generate_investment_report_pdf() with:
+            - dcf_results using EXACTLY these keys:
+              enterprise_value, intrinsic_per_share, equity_value
+            - financial_highlights including:
+              market_cap, revenue, net_income, free_cash_flow,
+              total_debt, cash, shares_outstanding, pe_ratio, beta
+            - All numbers as plain floats, no commas, no dollar signs
 
-            Use EXACTLY these keys in dcf_results:
-            enterprise_value, intrinsic_per_share, equity_value
-
-            financial_highlights should include:
-            market_cap, revenue, net_income, free_cash_flow,
-            total_debt, cash, shares_outstanding, pe_ratio, beta
-
-            All numbers must be plain floats with NO commas and NO dollar signs.
-
-            Call generate_investment_report_pdf() with all data.
             Return the PDF filename.
         """,
         expected_output="Path to the generated PDF file.",
