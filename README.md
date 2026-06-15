@@ -69,6 +69,15 @@ User Input ("Analyze TSLA" / "Apple" / "bitcoin")
             │
    reports/TICKER_research_YYYY-MM-DD.pdf
 ```
+flowchart TD
+    A[User Input] --> B[Ticker Resolver]
+    B --> C[Financial Data Agent]
+    B --> D[Sentiment Agent]
+    C --> E[DCF Analyst]
+    D --> F[Reconciler]
+    E --> F
+    F --> G[QA Reporter]
+    G --> H[PDF Report]
 
 ---
 
