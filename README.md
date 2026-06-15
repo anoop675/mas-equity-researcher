@@ -69,15 +69,7 @@ User Input ("Analyze TSLA" / "Apple" / "bitcoin")
             │
    reports/TICKER_research_YYYY-MM-DD.pdf
 ```
-flowchart TD
-    A[User Input] --> B[Ticker Resolver]
-    B --> C[Financial Data Agent]
-    B --> D[Sentiment Agent]
-    C --> E[DCF Analyst]
-    D --> F[Reconciler]
-    E --> F
-    F --> G[QA Reporter]
-    G --> H[PDF Report]
+<img width="518" height="465" alt="image" src="https://github.com/user-attachments/assets/5149b5c9-4ae9-4219-ad9b-c64ec8c211e9" />
 
 ---
 
